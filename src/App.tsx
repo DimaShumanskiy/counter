@@ -3,8 +3,9 @@ import React, {Dispatch, useEffect, useState} from 'react';
 import './App.css';
 import Counter from "./Counter/Counter";
 import Settings from "./Counter/Settings";
-import {useDispatch} from "react-redux";
-import {ActionsType, onIncAC, resetCountAC} from "./redux/counterReducer";
+import {useDispatch, useSelector} from "react-redux";
+import {ActionsType, InitialStateType, localStartValueStringAC, onIncAC, resetCountAC} from "./redux/counterReducer";
+import {RootReducerType} from "./redux/state";
 
 
 function App() {
@@ -20,98 +21,27 @@ function App() {
     // const [count, setCount] = useState<number>(startValue)
     // const [error, setError] = useState<boolean>(false)
 
-    //
-    // useEffect(() => {
-    //     let startValueString = localStorage.getItem('startValueKey')
-    //     if (startValueString) {
-    //         let newValue = JSON.parse(startValueString)
-    //         //setStartValue(newValue)
-    //     }
-    //     let maxValueString = localStorage.getItem('maxValueKey')
-    //     if (maxValueString) {
-    //         setMaxValue(JSON.parse(maxValueString))
-    //     }
-    // }, [])
+    const counter = useSelector<RootReducerType, InitialStateType>(state => state.counter)
 
-    // const resetCount = () => {
-        // let resCount = startValue;
-        // setCount(resCount)
-        // dispatch(resetCountAC())
-    // }
+    useEffect(() => {
+        let startValueString = localStorage.getItem('startValueKey')
+        if (startValueString) {
+            let newValue = JSON.parse(startValueString)
+            //setStartValue(newValue)
+            dispatch(localStartValueStringAC(counter.startValue))
+        }
+        let maxValueString = localStorage.getItem('maxValueKey')
+        if (maxValueString) {
+            // setMaxValue(JSON.parse(maxValueString))
+            // counter.maxValue(JSON.parse(maxValueString))
+        }
+    }, )
 
-    // const changeMaxValue = (value: number) => {
-    //     setEditMode(false)
-    //     setMaxValue(value)
-    //     //dispatch AC
-    // }
-
-    // console.log(error)
-    // console.log(startValue)
-    // const changeStartValue = (value: number) => {
-    //     if (value < 0 ) {
-    //         setError(true)
-    //         setEditMode(false)
-    //         setStartValue(value)
-    //     }else {
-    //         setError(false)
-    //         setEditMode(false)
-    //         setStartValue(value)
-    //     }
-    // }
-
-    // const changeMaxValue = (value: number) => {
-    //     if (value <= 1
-    //         // startValue
-    //     ) {
-    //         setError(true)
-    //         setEditMode(false)
-    //         setMaxValue(value)
-    //     } else {
-    //         setEditMode(false)
-    //         setMaxValue(value)
-    //         setError(false)
-    //     }
-    // }
-    //
-    // const changeStartValue = (value: number) => {
-    //     if (value < 0 || value >= maxValue) {
-    //         setError(true)
-    //         setEditMode(false)
-    //         // setStartValue(value)
-    //     } else {
-    //         setEditMode(false)
-    //         // setStartValue(value)
-    //         setError(false)
-    //     }
-    //
-    // }
-    //
-    // const newSetEditMode = () => {
-    //         setEditMode(true)
-    //         resetCount()
-    // }
 
     return (
         <div className="App">
-            <Settings
-                // error={error}
-                // maxValue={maxValue}
-                // startValue={startValue}
-                // setCount={setCount}
-                // changeMaxValue={changeMaxValue}
-                // changeStartValue={changeStartValue}
-                // newSetEditMode={newSetEditMode}
-            />
-            <Counter
-                // error={error}
-                // editMode={editMode}
-                // maxCount={maxValue}
-                // // startValue={startValue}
-                // onInc={onInc}
-                // // count={count}
-                // resetCount={resetCount}
-            />
-
+            <Settings/>
+            <Counter/>
         </div>
     );
 }

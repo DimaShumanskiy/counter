@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootReducerType} from "../redux/state";
 import {
     ActionsType, onChangeInputMaxValueAC,
-    onChangeInputStartValueAC,
+    onChangeInputStartValueAC, setCounterAC,
 } from "../redux/counterReducer";
 
 type PropsType = {
@@ -37,6 +37,9 @@ const Settings = (props: PropsType) => {
         dispatch(onChangeInputMaxValueAC(+e.currentTarget.value))
     }
 
+    const setCounter = () => {
+        dispatch(setCounterAC())
+    }
     return (
         <div className='container'>
             <div className='settings-window'>
@@ -62,7 +65,7 @@ const Settings = (props: PropsType) => {
                 <Button
                     disabled={error}
                     name={'set'}
-                    // callBack={props.newSetEditMode}
+                    callBack={setCounter}
                 />
             </div>
         </div>

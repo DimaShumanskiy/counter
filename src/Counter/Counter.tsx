@@ -7,16 +7,16 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootReducerType} from "../redux/state";
 
 
-type CounterType = {
-
-}
+type CounterType = {}
 
 
 function Counter(props: CounterType) {
 
     const counter = useSelector<RootReducerType, InitialStateType>(state => state.counter)
-    const disabledInc = counter.count === counter.maxValue
-    const disabledRes = counter.count === counter.startValue
+
+    const disabledInc = counter.count === counter.maxValue ? counter.editMode  : !counter.editMode
+    // const disabledInc = counter.count = counter.maxValue
+    const disabledRes = counter.count === counter.startValue ? counter.editMode  : !counter.editMode
 
     const dispatch = useDispatch<Dispatch<ActionsType>>()
 
@@ -38,11 +38,11 @@ function Counter(props: CounterType) {
             <div className='button-container'>
                 <Button name={'inc'}
                         callBack={onInc}
-                    disabled={disabledInc}
+                        disabled={disabledInc}
                 />
                 <Button name={'reset'}
                         callBack={resetCount}
-                    disabled={disabledRes}
+                        disabled={disabledRes} // disabled кнопки на обратное значение editMode табло
                 />
             </div>
         </div>
