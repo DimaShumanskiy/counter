@@ -10,7 +10,9 @@ type InputType = {
 }
 const Input = (props: InputType) => {
 
-
+    const focus = () => {
+        console.log('input in focus')
+    }
 
     return (
         <input className={
@@ -21,6 +23,7 @@ const Input = (props: InputType) => {
                onChange={props.callBack}
                type={"number"}
                min="-1"
+               onFocus={focus}
         />
 
     );

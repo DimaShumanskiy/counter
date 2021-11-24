@@ -10,13 +10,6 @@ import {
 } from "../redux/counterReducer";
 
 type PropsType = {
-    // maxValue: number
-    // // startValue: number
-    // // setCount: (count: number) => void
-    // changeStartValue: (value:number) => void
-    // changeMaxValue: (value:number) => void
-    // newSetEditMode:() => void
-    // error: boolean
 
 }
 
@@ -34,7 +27,9 @@ const Settings = (props: PropsType) => {
         dispatch(onChangeInputStartValueAC(newValue))
     }
     const onChangeInputMaxValue = (e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(onChangeInputMaxValueAC(+e.currentTarget.value))
+        const maxValue = e.currentTarget.value
+        dispatch(onChangeInputMaxValueAC(+maxValue))
+        localStorage.setItem('maxValueKey', maxValue)
     }
 
     const setCounter = () => {

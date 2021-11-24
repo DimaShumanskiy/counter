@@ -25,17 +25,20 @@ function App() {
 
     useEffect(() => {
         let startValueString = localStorage.getItem('startValueKey')
+        //console.log('startValueString: ', startValueString)
         if (startValueString) {
             let newValue = JSON.parse(startValueString)
+            //console.log('newValue: ', newValue)
             //setStartValue(newValue)
-            dispatch(localStartValueStringAC(counter.startValue))
+            dispatch(localStartValueStringAC(newValue))
         }
         let maxValueString = localStorage.getItem('maxValueKey')
         if (maxValueString) {
+            console.log('maxValueString: ', maxValueString)
             // setMaxValue(JSON.parse(maxValueString))
             // counter.maxValue(JSON.parse(maxValueString))
         }
-    }, )
+    }, [])
 
 
     return (
