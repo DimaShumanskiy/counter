@@ -1,5 +1,5 @@
-import {Dispatch} from "react";
 
+//режим editMode - стейт, на основании которого нужно показывать или нет экран с подсказкой
 const initialState = {
     editMode: true,
     maxValue: 5,
@@ -42,11 +42,6 @@ export const counterReducer = (state: InitialStateType = initialState, action: A
                     startValue: action.startValue,
                 }
             }
-
-        // return
-        //     // ...state,
-        //     // startValue: action.startValue
-        // }
         case "CHANGE-INPUT-MAX-VALUE":
             if (action.maxValue <= state.startValue) {
                 return {
@@ -55,12 +50,12 @@ export const counterReducer = (state: InitialStateType = initialState, action: A
                     editMode: false,
                     maxValue: action.maxValue,
                 }
-            } else  {
-                    return {
-                        ...state,
-                        editMode: false,
-                        error: false,
-                        maxValue: action.maxValue,
+            } else {
+                return {
+                    ...state,
+                    editMode: false,
+                    error: false,
+                    maxValue: action.maxValue,
                 }
             }
         case "SET-COUNTER":
@@ -68,11 +63,6 @@ export const counterReducer = (state: InitialStateType = initialState, action: A
                 ...state,
                 count: state.startValue,
                 editMode: true,
-            }
-        case "LOCAL-START-VALUE":
-            return {
-                ...state,
-                startValue: action.startValue
             }
         default:
             return state
@@ -86,22 +76,25 @@ export type ActionsType = ReturnType<typeof onIncAC>
     | ReturnType<typeof onChangeInputStartValueAC>
     | ReturnType<typeof onChangeInputMaxValueAC>
     | ReturnType<typeof setCounterAC>
-    | ReturnType<typeof localStartValueStringAC>
+
+// | ReturnType<typeof localStartValueStringAC>
 
 export const onIncAC = () => ({type: 'ON-INC'}) as const
-
 export const resetCountAC = () => ({type: 'RESET-COUNT'}) as const
+export const setCounterAC = () => ({type: 'SET-COUNTER'}) as const
 
+// onChangeInputStartValueAC и onChangeInputMaxValueAC -- используется для local storage
+export const onChangeInputMaxValueAC = (maxValue: number) => ({type: 'CHANGE-INPUT-MAX-VALUE', maxValue}) as const
 export const onChangeInputStartValueAC = (startValue: number) => ({
     type: 'CHANGE-INPUT-START-VALUE',
     startValue
 }) as const
-export const onChangeInputMaxValueAC = (maxValue: number) => ({type: 'CHANGE-INPUT-MAX-VALUE', maxValue}) as const
 
-export const setCounterAC = () => ({type: 'SET-COUNTER'}) as const
-
-export const localStartValueStringAC = (startValue: number) => ({type: 'LOCAL-START-VALUE' ,startValue}) as const
-
-// export const inv = (startValue: number) => (dispatch: Dispatch) => {
-//     localStorage.getItem('startValueKey', )
+// export const localStartValueStringAC = (startValue: number) => ({type: 'LOCAL-START-VALUE' ,startValue}) as const
+// case "LOCAL-START-VALUE":
+// return {
+//     ...state,
+//     startValue: action.startValue
 // }
+
+

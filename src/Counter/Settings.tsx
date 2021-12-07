@@ -1,4 +1,4 @@
-import React, {ChangeEvent, Dispatch, useState} from 'react';
+import React, {ChangeEvent, Dispatch} from 'react';
 import {Button} from "./Button/Button";
 import Input from "./Input";
 import './counter.css'
@@ -23,18 +23,20 @@ const Settings = (props: PropsType) => {
 
 
     const onChangeInputStartValue = (e: ChangeEvent<HTMLInputElement>) => {
-        let newValue = +e.currentTarget.value
-        dispatch(onChangeInputStartValueAC(newValue))
+        let newValue = e.currentTarget.value
+        dispatch(onChangeInputStartValueAC(+newValue))
     }
     const onChangeInputMaxValue = (e: ChangeEvent<HTMLInputElement>) => {
         const maxValue = e.currentTarget.value
         dispatch(onChangeInputMaxValueAC(+maxValue))
-        localStorage.setItem('maxValueKey', maxValue)
     }
 
     const setCounter = () => {
         dispatch(setCounterAC())
+        localStorage.setItem('maxValueKey',JSON.stringify( maxValue))
+        localStorage.setItem('startValueKey', JSON.stringify(startValue))
     }
+
     return (
         <div className='container'>
             <div className='settings-window'>

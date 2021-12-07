@@ -1,7 +1,5 @@
 import React from 'react';
 import './counter.css'
-import {useSelector} from "react-redux";
-import {RootReducerType} from "../redux/state";
 
 type PropsType = {
     count?: number
@@ -14,8 +12,8 @@ type PropsType = {
 const Window = (props: PropsType) => {
 
     return (
-        props.editMode ?
-            <div className={
+        props.editMode
+            ? <div className={
                 props.count === props.maxValue
                     ? 'red-tablo'
                     : 'tablo'}>

@@ -14,10 +14,20 @@ function Counter(props: CounterType) {
 
     const counter = useSelector<RootReducerType, InitialStateType>(state => state.counter)
 
-    const disabledInc = counter.count === counter.maxValue ? counter.editMode  : !counter.editMode
-    // const disabledInc = counter.count = counter.maxValue
-    const disabledRes = counter.count === counter.startValue ? counter.editMode  : !counter.editMode
+    const disabledInc = counter.count === counter.maxValue // проверяем ошибки сравнение значение счетчика и window
+        ? ((counter.count === counter.maxValue) === counter.editMode
+            ? counter.editMode
+            : !counter.editMode)
+        // делаем доп проверку для избежания ошибки когда (counter.count === counter.maxValue) равны. Но window  находиться в стадии настройки
+        : !counter.editMode
+    const disabledRes = counter.count === counter.startValue
+        ? ((counter.count === counter.startValue) === counter.editMode ? counter.editMode : !counter.editMode)
+        : !counter.editMode
 
+
+    // const disabledRes = counter.count === counter.startValue
+    //     ? counter.editMode
+    //     : !counter.editMode
     const dispatch = useDispatch<Dispatch<ActionsType>>()
 
     const onInc = () => {
